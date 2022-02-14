@@ -17,13 +17,27 @@ function getShopCalculation (product, price, isAdd) {
     // get total product price
     const productPrice = document.getElementById(product + '-price');
     productPrice.innerText = productQuantity * price;
-}
 
+    // update subtotal, tax, and total
+    checkOutTotal ();
+}
+function getInputValue (product) {
+    const productQuantityField = document.getElementById(product + '-quantity');
+    let productQuantity = parseInt(productQuantityField.value);
+
+    return productQuantity;
+}
 function checkOutTotal () {
-    const phonePrice = parseFloat(document.getElementById('phone-price').innerText);
-    const casePrice = parseFloat(document.getElementById('case-price').innerText);
-    const subTotalField = document.getElementById('sub-total');
-    subTotalField.innerText = phonePrice + casePrice;
+    const phonePrice = getInputValue ('phone') * 1219;
+    const casePrice = getInputValue ('case') * 59;
+
+    const subTotal = phonePrice + casePrice;
+    const tax = subTotal / 10;
+    const total = subTotal + tax;
+
+    document.getElementById('sub-total').innerText = subTotal;
+    document.getElementById('tax-field').innerText = tax;
+    document.getElementById('total-field').innerText = total;
 }
 
 document.getElementById('phone-plus').addEventListener('click', function () {
@@ -37,8 +51,4 @@ document.getElementById('case-plus').addEventListener('click', function () {
 }) 
 document.getElementById('case-minus').addEventListener('click', function () {
     getShopCalculation ('case', 59, false)
-})
-
-document.getElementById('check-out').addEventListener('click', function () {
-    checkOutTotal ();
 })
