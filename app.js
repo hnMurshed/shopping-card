@@ -32,7 +32,7 @@ function checkOutTotal () {
     const casePrice = getInputValue ('case') * 59;
 
     const subTotal = phonePrice + casePrice;
-    const tax = subTotal / 10;
+    const tax = (subTotal * 5) / 100;
     const total = subTotal + tax;
 
     document.getElementById('sub-total').innerText = subTotal;
